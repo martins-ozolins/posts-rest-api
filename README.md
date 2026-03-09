@@ -1,6 +1,6 @@
 # Posts REST API
 
-A Spring Boot REST API with JWT cookie-based authentication and PostgreSQL.
+A Spring Boot REST API with JWT cookie-based authentication, refresh tokens, and PostgreSQL.
 
 ## Prerequisites
 
