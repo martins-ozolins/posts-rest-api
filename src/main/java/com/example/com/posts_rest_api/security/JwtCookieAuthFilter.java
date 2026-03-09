@@ -1,5 +1,6 @@
 package com.example.com.posts_rest_api.security;
 
+import com.example.com.posts_rest_api.dto.AuthDtos.*;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -51,9 +52,9 @@ public class JwtCookieAuthFilter extends OncePerRequestFilter {
         }
 
         try {
-            String email = jwtService.validateAndGetSubject(token);
+            JwtClaims jwtClaims = jwtService.validateAndGetClaims(token);
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(jwtClaims.email());
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     userDetails,
