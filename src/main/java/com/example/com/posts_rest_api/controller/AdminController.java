@@ -37,13 +37,18 @@ public class AdminController {
 
     @GetMapping("/{id}")
     public UserAdminResponse getUser(@PathVariable UUID id) {
-        return adminService.getUser(id);
+        return adminService.getUserById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserAdminResponse> updateUser(@PathVariable UUID id, @RequestBody UpdateUserRequest req) {
+        return ResponseEntity.ok(adminService.updateUserById(id, req));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         adminService.deleteUserById(id);
-        return ResponseEntity.noContent().build(); // 204
+        return ResponseEntity.noContent().build();
     }
 
 

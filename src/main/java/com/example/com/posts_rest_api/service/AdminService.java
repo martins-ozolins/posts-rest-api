@@ -30,10 +30,18 @@ public class AdminService {
         return users.stream().map(user -> new UserAdminResponse(user.getId(), user.getEmail(), user.getName(), user.getCreatedAt(), user.getRoles())).toList();
     }
 
-    public UserAdminResponse getUser(UUID id) {
+    public UserAdminResponse getUserById(UUID id) {
 
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User with " + id + " not found!"));
 
+        return new UserAdminResponse(user.getId(), user.getEmail(), user.getName(), user.getCreatedAt(), user.getRoles());
+    }
+
+    public UserAdminResponse updateUserById(UUID id, UpdateUserRequest req) {
+        User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User with " + id + " not found!"));
+        if (req.name() != null) user.setName(req.name());
+        if (req.roles() != null) user.setRoles(req.roles());
+        userRepository.save(user);
         return new UserAdminResponse(user.getId(), user.getEmail(), user.getName(), user.getCreatedAt(), user.getRoles());
     }
 
