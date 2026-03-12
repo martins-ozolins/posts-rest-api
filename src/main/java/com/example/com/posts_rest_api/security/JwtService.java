@@ -43,6 +43,7 @@ public class JwtService {
                 .issuer(issuer)
                 .subject(email)   // subject = user identity
                 .claim("userId", id.toString())
+                .claim("jti", UUID.randomUUID().toString())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(exp))
                 .signWith(key)                // HS256 auto-chosen based on key type
